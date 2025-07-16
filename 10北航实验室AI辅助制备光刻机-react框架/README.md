@@ -50,7 +50,15 @@ const renderDiagram = async () => {
 };
 ```
 
-#### 2.3 动态表单系统
+### 2.2 流程图渲染
+
+![流程图渲染](./images/流程图渲染.png)
+
+### 2.3 父组件跟踪
+
+![父组件跟踪](./images/父组件跟踪.png)
+
+#### 2.4 动态表单系统
 ```jsx
 // 动态生成表单
 const ProcessForm = ({ processes }) => {
