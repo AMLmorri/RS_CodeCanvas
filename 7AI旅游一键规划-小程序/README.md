@@ -2,17 +2,17 @@
 
 ## 项目概述
 
-这是一个基于微信小程序平台开发的智能旅游助手应用，旨在为用户提供全方位的旅游规划和导览服务。项目利用AI大模型技术，结合腾讯地图服务，为用户打造个性化的旅游体验。
+这是一个基于微信小程序平台开发的智能旅游助手应用，旨在为用户提供一站式的旅游规划和导览服务。通过集成AI大模型、腾讯地图API和语音导览等功能，为用户打造个性化的旅游体验。
 
 ![封面页](./images/封面页-后端图片数据缺失.png)
 
 ## 核心功能
 
 ### 1. AI智能规划
-- 基于大模型的智能旅游规划
-- 个性化行程定制
-- 智能景点推荐
-- 旅游时间规划助手
+- 基于大模型的智能对话系统
+- 个性化旅游路线推荐
+- 智能行程时间规划
+- 景点推荐系统
 
 ![AI聊天界面](./images/AI聊天页面.png)
 
@@ -25,12 +25,12 @@
 ![景区导览](./images/景区导览.png)
 
 ### 3. 语音导览服务
-- 景点语音讲解
-- 文物知识介绍
+- 专业讲解内容
+- 景点语音包购买
+- 文物详细介绍
 - 历史文化解说
-- 专业讲解购买
 
-![语音导览](./images/景区语音包.png)
+![语音包功能](./images/景区语音包.png)
 
 ### 4. 个性化服务
 - 用户中心
@@ -43,133 +43,111 @@
 ## 技术栈详解
 
 ### 1. 前端架构
-- 微信小程序原生开发
-- TypeScript 语言
-- WXSS 样式处理
-- Component 组件化开发
+- 采用**微信小程序原生开发**框架
+- 使用**TypeScript**进行开发，提供类型安全
+- 实现**组件化**开发，提高代码复用性
+- 使用**WXSS**实现响应式布局
 
-### 2. 页面布局技术
-```typescript
-// 创新性布局方案
-interface IPageData {
-  mainAnimationClass: string;
-  images: string[];
-  currentIndex: number;
-  rotateY: number;
-  radius: number;
-  translateZ: number;
-}
+### 2. 页面结构设计
+```
+miniprogram/
+  ├── pages/
+  │   ├── initiate/          # 启动页
+  │   ├── ScenicSpot_guide/  # 景点导览
+  │   ├── ScenicSpot_detail/ # 景点详情
+  │   └── ScenicSpot_list/   # 语音包列表
+  └── components/            # 公共组件
 ```
 
-### 3. 动画效果
-- CSS3 高级动画
-- Transform 3D转换
-- Transition 过渡效果
-- 自定义动画帧
+### 3. 核心技术实现
+
+#### 3.1 动画效果
+- 使用CSS3实现流畅的转场动画
+- 自定义动画类控制页面切换效果
+- 实现3D轮播图效果
 
 ```css
-.spot-card {
-  animation: fade-slide-up 0.6s cubic-bezier(0.23, 1, 0.32, 1) both;
-  transition: box-shadow 0.2s;
-}
-
-@keyframes fade-slide-up {
-  0% {
-    opacity: 0;
-    transform: translateY(60rpx);
-  }
-  100% {
-    opacity: 1;
-    transform: translateY(0);
-  }
+.swiper-wrapper {
+    transform-style: preserve-3d;
+    transition: transform 0.6s ease-out;
 }
 ```
 
-### 4. 交互设计
-- 手势滑动控制
-- 3D旋转画廊
-- 沉浸式页面切换
-- 流畅的动画过渡
-
-```typescript
-handleTouchMove(e: any) {
-  const touchEndX = e.touches[0].clientX;
-  const moveX = touchEndX - this.data.touchStartX;
-  const tempRotation = this.data.totalRotation + (moveX / 2);
-  this.setData({
-    rotateY: tempRotation
-  });
-}
-```
-
-### 5. 组件化开发
-- 自定义组件封装
-- 组件间通信
-- 生命周期管理
-- 状态管理设计
-
-```json
-{
-  "usingComponents": {
-    "guide-content": "/components/scenic-spot-components/guide-content/guide-content",
-    "intro-content": "/components/scenic-spot-components/intro-content/intro-content",
-    "strategy-content": "/components/scenic-spot-components/strategy-content/strategy-content"
-  }
-}
-```
-
-### 6. 样式设计
-- 响应式布局
-- Flex弹性布局
-- Grid网格系统
-- 主题色系统
+#### 3.2 布局技术
+- 采用Flex弹性布局
+- 使用Grid网格布局
+- 响应式设计适配不同机型
+- 自定义导航栏实现
 
 ```css
 .content-main {
-  display: flex;
-  flex-direction: column;
-  background: linear-gradient(135deg, #fdf5e2 60%, #ffe4b5 100%);
+    display: flex;
+    flex-direction: column;
+    min-height: 100vh;
 }
+```
+
+#### 3.3 状态管理
+- 使用TypeScript接口定义数据结构
+- 实现页面间数据通信
+- 本地存储管理用户数据
+
+```typescript
+interface IPageData {
+    mainAnimationClass: string;
+    currentTab: number;
+    // ... 其他数据结构
+}
+```
+
+#### 3.4 组件化开发
+- 封装通用UI组件
+- 实现组件间通信
+- 自定义事件处理
+
+```typescript
+Component({
+    properties: {
+        guideList: Array,
+        // ... 组件属性
+    },
+    methods: {
+        // ... 组件方法
+    }
+})
 ```
 
 ## 项目亮点
 
-1. **创新的UI设计**
-   - 3D旋转画廊展示
-   - 流畅的动画过渡
-   - 精美的视觉效果
-   - 直观的操作体验
+1. **优秀的用户体验**
+   - 流畅的页面过渡动画
+   - 精心设计的UI界面
+   - 直观的操作流程
 
-2. **高性能实现**
-   - 页面按需加载
-   - 图片懒加载优化
-   - 动画性能优化
-   - 内存管理优化
+2. **创新的功能设计**
+   - AI智能规划集成
+   - 3D景点展示
+   - 语音导览服务
 
-3. **代码质量**
-   - TypeScript类型检查
-   - 组件化模块设计
-   - 清晰的代码结构
-   - 规范的命名约定
+3. **高质量的代码实现**
+   - TypeScript类型安全
+   - 组件化架构
+   - 代码复用性高
 
-4. **用户体验**
-   - 沉浸式界面设计
-   - 智能推荐算法
-   - 便捷的操作流程
-   - 个性化定制服务
-
-## 技术成果
-
-1. 实现了基于微信小程序的完整旅游服务平台
-2. 开发了创新的3D旋转画廊展示组件
-3. 设计了高效的状态管理方案
-4. 构建了灵活的组件化架构
-5. 优化了复杂动画性能
+4. **完善的业务逻辑**
+   - 用户行为分析
+   - 个性化推荐
+   - 支付功能集成
 
 ## 项目收获
 
 1. 深入理解微信小程序开发流程
 2. 掌握TypeScript在实际项目中的应用
-3. 提升组件化开发和模块化设计能力
-4. 积累复杂业务场景解决方案
-5. 增强项目架构设计能力 
+3. 提升组件化开发能力
+4. 增强项目架构设计能力
+5. 提高用户体验设计水平
+
+## 项目展示
+
+![景点详情](./images/景点详情页面.png)
+![购物车](./images/购物车.png) 
